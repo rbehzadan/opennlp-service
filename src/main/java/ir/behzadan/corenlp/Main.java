@@ -8,12 +8,10 @@ import java.io.IOException;
 import java.net.URI;
 
 
-/**
- * Main class.
- *
- */
 public class Main {
-    public static final String BASE_URI = "http://0.0.0.0:6003/";
+    static final String DEFAULT_HOST = "0.0.0.0";
+    static final String DEFAULT_PORT = "6003";
+    public static String BASE_URI;
 
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig().packages("ir.behzadan.opennlp");
@@ -21,6 +19,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        String host = System.getenv("OPENNLP_SERVICE_HOST");
+        String port = System.getenv("OPENNLP_SERVICE_PORT");
+        host = (host == null) ? DEFAULT_HOST : host;
+        port = (port == null) ? DEFAULT_PORT : port;
+        BASE_URI = "http://" + host + ":" + port + "/";
+
         OpenNLP nlp = OpenNLP.getInstance();
         final HttpServer server = startServer();
         Thread.currentThread().join();
