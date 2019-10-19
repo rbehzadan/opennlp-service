@@ -65,13 +65,16 @@ $ docker build -t opennlp .
 
 #### Run:
 ```bash
-$ docker run --name opennlp --rm --memory 4G -p 80:80 -d opennlp
+$ docker run --name opennlp --rm -p 80:80 -d opennlp
 ```
 To specify the listening port:
 ```bash
 $ docker run -e OPENNLP_SERVICE_PORT=1234 -p 1234:1234 -d opennlp
 ```
-
+If you're using Docker for Mac, you may have to specify a memory limit.
+```bash
+$ docker run --memory 4G -p 80:80 -d opennlp
+```
 
 ## Licenses
 
