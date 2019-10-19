@@ -5,7 +5,7 @@ This java program provides RESTful API for [Apache OpenNLP](https://opennlp.apac
 ### Notes:
 - It is based on [Jersey](https://jersey.github.io/) and [Grizzly](https://javaee.github.io/grizzly/) frameworks. 
 
-- Default binding address is: 0.0.0.0:6003
+- Default binding address is: 0.0.0.0:80
 
 - The web service consumes POST requests with raw data (`text/plain`) payload.
 
@@ -39,14 +39,14 @@ $ java -jar target/opennlp-service-1.0.jar
 
 #### 5. Use:
 ```bash
-$ curl http://localhost:6003/ -d "Grammar is useless because there is nothing to say."
+$ curl http://localhost -d "Grammar is useless because there is nothing to say."
 ```
 
 ### Changing binding address
 
 You can change listening address and port by these two environment variables:
-- OPENNLP_SERVICE_HOST
-- OPENNLP_SERVICE_PORT
+- `OPENNLP_SERVICE_HOST`
+- `OPENNLP_SERVICE_PORT`
 
 &nbsp;
 
@@ -65,13 +65,16 @@ $ docker build -t opennlp .
 
 #### Run:
 ```bash
-$ docker run -p 6003:6003 -d opennlp
+$ docker run --name opennlp --rm -p 80:80 -d opennlp
 ```
 To specify the listening port:
 ```bash
 $ docker run -e OPENNLP_SERVICE_PORT=1234 -p 1234:1234 -d opennlp
 ```
-
+If you're using Docker for Mac, you may have to specify a memory limit.
+```bash
+$ docker run --memory 4G -p 80:80 -d opennlp
+```
 
 ## Licenses
 

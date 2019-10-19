@@ -10,7 +10,7 @@ import java.net.URI;
 
 public class Main {
     static final String DEFAULT_HOST = "0.0.0.0";
-    static final String DEFAULT_PORT = "6003";
+    static final String DEFAULT_PORT = "80";
     public static String BASE_URI;
 
     public static HttpServer startServer() {
