@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import opennlp.tools.util.Span;
+import opennlp.tools.util.normalizer.EmojiCharSequenceNormalizer;
 
 
 class Token {
@@ -85,6 +86,7 @@ class PipeLine {
     }
 
     public Text run(String rawText) {
+        rawText = this.normalizeEmoji(rawText);
         Text text = new Text();
         String[] sentences = engine.detectSentences(rawText);
         text.sentences = new Sentence[sentences.length];
@@ -105,6 +107,10 @@ class PipeLine {
             text.sentences[i] = sent;
         }
         return text;
+    }
+
+    private String normalizeEmoji(String rawText) {
+        return EmojiCharSequenceNormalizer.getInstance().normalize(rawText).toString();
     }
 }
 
